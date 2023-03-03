@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "599594199811",
+    "project_id": "tellist-15be4",
+    "storage_bucket": "tellist-15be4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599594199811:android:89ea9508214863c5349736",
+        "android_client_info": {
+          "package_name": "com.example.tellist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599594199811-hhefqt9t2uve3gfjj2hp6d52ck4eanrh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmqLSSS0KhsHvGotj1XrUDBz6rxhgiLdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599594199811-hhefqt9t2uve3gfjj2hp6d52ck4eanrh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
