@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tellist/screens/NovoContato.dart';
+import 'package:tellist/screens/create_or_update_contact.dart';
+
+// essa lista de telefones eu botar um botão pra editar e reaproveitar o formcontact. botao na direita do listtile
+// um botão pra apagar também
+// colocar um fundinho, uma borda, que seja, na listtile
+// paginação
+// validação de dados nos edits e creates.
+// fazer login. e ai fazer bem pessoal mesmo
 
 class ListaDeTelefones extends StatefulWidget {
   const ListaDeTelefones({super.key});
@@ -21,6 +28,7 @@ class _ListaDeTelefonesState extends State<ListaDeTelefones> {
         title: const Text('Lista de Telefones'),
       ),
       body: StreamBuilder<QuerySnapshot>(
+        //futurebuilder com switch
         stream: contactsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -45,9 +53,33 @@ class _ListaDeTelefonesState extends State<ListaDeTelefones> {
                 .map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
-                  return ListTile(
-                    title: Text(data['nome']),
-                    subtitle: Text(data['numero']),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CreateOrUpdateContact(
+                              type: 'Update',
+                              nome: data['nome'],
+                              numero: data['numero'],
+                              document: document),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(data['nome']),
+                      subtitle: Row(
+                        children: [
+                          Text(data['numero']),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () {
+                              db.doc(document.id).delete();
+                            },
+                            child: const Text('Delete'),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 })
                 .toList()
@@ -59,7 +91,9 @@ class _ListaDeTelefonesState extends State<ListaDeTelefones> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const NovoContato(),
+              builder: (context) => const CreateOrUpdateContact(
+                type: 'Create',
+              ),
             ),
           );
         },
